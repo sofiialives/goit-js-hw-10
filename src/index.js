@@ -5,10 +5,6 @@ import 'slim-select/dist/slimselect.css';
 import Notiflix from 'notiflix';
 import './styles.css';
 
-const API_KEY =
-  'live_xE7rQU3rH5L8SUEzkUg8K2GIuGcTzdTI74Vx5vXMQD1mQ8MQxDMzWtoQhVoXEv2d';
-axios.defaults.headers.common['x-api-key'] = API_KEY;
-
 const refs = {
   selectOpt: document.querySelector('.breed-select'),
   loader: document.querySelector('.loader'),
@@ -27,8 +23,7 @@ fetchBreeds()
       emptyMas.push({ text: element.name, value: element.id});
     });
     new SlimSelect({
-      select: refs.selectOpt,
-      data: emptyMas,
+      select: refs.selectOpt
     });
   })
   .catch(error => {
