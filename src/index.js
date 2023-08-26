@@ -19,11 +19,12 @@ refs.catInf.classList.add('is-hidden');
 let emptyMas = [];
 fetchBreeds()
   .then(data => {
-    data.forEach(element => {
-      emptyMas.push({ text: element.name, value: element.id});
-    });
+    const createOptions = data
+      .map(breed => `<option value = "${breed.id}">${breed.name}</option>`)
+      .join('');
+    refs.selectOpt.insertAdjacentHTML('beforeend', createOptions);
     new SlimSelect({
-      select: refs.selectOpt
+      select: refs.selectOpt,
     });
   })
   .catch(error => {
@@ -31,7 +32,7 @@ fetchBreeds()
     refs.loader.classList.replace('loader', 'is-hidden');
 
     Notiflix.Notify.failure('Oops! There is a mistake..');
-    console.error(error)
+    console.error(error);
   });
 
 refs.selectOpt.addEventListener('change', selectImg);
@@ -40,7 +41,6 @@ function selectImg(e) {
   refs.loader.classList.replace('is-hidden', 'loader');
   refs.selectOpt.classList.add('is-hidden');
   refs.catInf.classList.add('is-hidden');
-
 
   const breedId = e.target.value;
   fetchCatByBreed(breedId)
@@ -69,6 +69,6 @@ function selectImg(e) {
       refs.loader.classList.replace('loader', 'is-hidden');
 
       Notiflix.Notify.failure('Oops! There is a mistake..');
-      console.error(error)
+      console.error(error);
     });
 }
